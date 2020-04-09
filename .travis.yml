@@ -10,7 +10,7 @@ install:
   - export PATH=$(pwd)/pandoc-2.9.2.1/bin:$PATH
 
 script:
-  - build.sh
+  - ./build.sh
 
 deploy:
   provider: pages
