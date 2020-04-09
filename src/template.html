@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>$if(title)$$title$ - $endif$kuretchi's blog</title>
+    <meta property="og:url" content="$url$" />
+    <meta property="og:title" content="$title$ - kuretchi's blog" />
+    <meta name="twitter:card" content="summary" />
+    <style>
+$styles.html()$
+    </style>
+$for(css)$
+    <link rel="stylesheet" href="$css$" />
+$endfor$
+$if(math)$
+    $math$
+$endif$
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="global-container">
+      <header id="global-header">
+        <div id="global-header-container">
+          <a id="blog-title" href="/">kuretchi's blog</a>
+        </div>
+      </header>
+      <div id="content">
+$if(title)$
+        <header class="entry-header">
+          <h1 class="entry-title">$title$</h1>
+  $if(date)$
+          <time class="entry-date" datetime="$date$">$date$</time>
+  $endif$
+        </header>
+$endif$
+        <div id="body-container">
+$body$
+        </div>
+      </div>
+      <footer id="global-footer">
+        <div id="global-footer-container">
+          <small class="copyright">&copy; 2020 kuretchi</small>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

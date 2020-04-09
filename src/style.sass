@@ -1,0 +1,250 @@
+\:root
+    --background-color: #fefeff
+    --color: #38383d
+    --color-light: #878793
+    --color-extra-light: #dfdff2
+    --link-color: #5b5bee
+    --transition-duration: 0.15s
+
+@mixin left-and-right($value)
+    left: $value
+    right: $value
+
+@mixin top-and-bottom($value)
+    top: $value
+    bottom: $value
+
+@mixin box
+    overflow:
+        x: auto
+        y: hidden
+    padding:
+        @include left-and-right(1em)
+    border:
+        color: var(--color)
+        style: solid
+        width: 2px
+    margin:
+        @include top-and-bottom(1.25em)
+
+@mixin center
+    // avoid overflow
+    width: 100%
+    max-width: 50rem
+    padding:
+        @include left-and-right(1rem)
+    margin:
+        @include left-and-right(auto)
+
+body
+    background-color: var(--background-color)
+    color: var(--color)
+    font:
+        family: sans-serif
+        feature-settings: "kern"
+    line-height: 1.75em
+
+h1
+    font:
+        size: 1.75em
+        weight: normal
+    margin:
+        top: 2em
+        bottom: 1em
+    line-height: 1.4em
+
+h2
+    // avoid too long border-bottom
+    display: inline-block
+    font:
+        size: 1.55em
+        weight: normal
+        feature-settings: "palt"
+    padding:
+        bottom: 0.25em
+    border-bottom:
+        color: var(--color)
+        style: solid
+        width: 2px
+    margin:
+        top: 1.25em
+        bottom: 0.5em
+
+h3
+    font:
+        size: 1.45em
+        weight: normal
+        feature-settings: "palt"
+    margin:
+        top: 1.5em
+        bottom: 0.75em
+
+// h5 and h6 should not be used
+h4, h5, h6
+    font:
+        size: 1.2em
+        weight: normal
+        feature-settings: "palt"
+    margin:
+        top: 1.5em
+        bottom: 0.75em
+
+@mixin p-like-margin($important: false)
+    margin:
+        @include top-and-bottom(1em if($important, !important, null))
+
+p
+    @include p-like-margin
+
+mjx-container[display="true"]
+    @include p-like-margin($important: true)
+
+ul, ol
+    @include p-like-margin
+    padding-inline-start: 2em
+
+    li > &
+        margin:
+            @include top-and-bottom(unset)
+
+li
+    padding-left: 0.25em
+
+a
+    &:link
+        color: var(--link-color)
+        // remove default underline
+        text-decoration: unset
+        border-bottom:
+            color: var(--link-color)
+            style: solid
+            width: 1px
+        transition:
+            property: color, border-bottom-color
+            duration: var(--transition-duration)
+
+    &:hover
+        color: var(--color)
+        border-bottom-color: var(--color)
+
+pre
+    line-height: 1.5em
+
+code
+    font:
+        // for macOS and Windows; their default monospace font is not for coding
+        family: "Menlo", "Monaco", "Consolas", monospace
+        size: 0.98em
+
+div.sourceCode
+    @include box
+    padding:
+        @include top-and-bottom(0.6em)
+
+dl
+    @include box
+
+    @mixin p-like-margin($important: false)
+        margin:
+            @include top-and-bottom(0.6em if($important, !important, null))        
+
+    & > dt, & > dd, & > p
+        @include p-like-margin
+
+    mjx-container[display="true"]
+        @include p-like-margin($important: true)
+
+    & > dd
+        margin:
+            left: 1.5em
+
+hr
+    width: 1.5em
+    border:
+        color: var(--color)
+        style: solid
+        width: 1px
+    margin:
+        @include top-and-bottom(1.5em)
+
+.entry-header
+    margin-bottom: 2em
+
+.entry-title
+    font-feature-settings: "palt"
+    margin:
+        top: 0
+        bottom: 0
+
+.entry-date
+    color: var(--color-light)
+    font-size: 0.85em
+    margin: 0
+
+.footnotes
+    font-size: 0.95em
+    margin:
+        top: 4em
+
+.footnote-ref
+    margin:
+        @include left-and-right(0.1em)
+
+.footnote-back
+    margin:
+        left: 0.1em
+
+a:link
+    &.footnote-ref, &.footnote-back
+        border-bottom: unset
+
+#global-container
+    display: flex
+    flex-direction: column
+
+#global-header
+    border-bottom:
+        color: var(--color-extra-light)
+        style: solid
+        width: 1px
+
+#global-header-container
+    display: flex
+    justify-content: space-between
+    @include center
+
+#blog-title
+    color: var(--color-light)
+    font:
+        size: 1.2em
+        weight: normal
+    // remove underline
+    text-decoration: none
+    border-bottom: unset
+    margin:
+        @include top-and-bottom(0.5em)
+    transition:
+        property: color
+        duration: var(--transition-duration)
+
+    &:hover
+        color: var(--color)
+
+#content
+    @include center
+    margin:
+        @include top-and-bottom(3em)
+
+#global-footer
+    border-top:
+        color: var(--color-extra-light)
+        style: solid
+        width: 1px
+
+#global-footer-container
+    display: flex
+    justify-content: space-between
+    @include center
+    color: var(--color-light)
+    margin:
+        bottom: 0.5rem
