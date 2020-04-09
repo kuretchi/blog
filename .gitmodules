@@ -1,0 +1,3 @@
+[submodule "ssg"]
+	path = ssg
+	url = https://github.com/kuretchi/ssg.git
