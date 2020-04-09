@@ -1,3 +1,5 @@
+URL_ROOT = /blog
+
 ENTRY_DIR = entries
 
 SRC_DIR = src
@@ -19,12 +21,12 @@ PANDOC_FLAGS = -f markdown -t html5 -s \
 	--template=$(PANDOC_TEMPLATE) \
 	--highlight-style kate \
 	-c https://unpkg.com/ress/dist/ress.min.css \
-	-c /style.css \
+	-c $(URL_ROOT)/style.css \
 	--mathjax
 
 $(PUB_ENTRY_DIR)/%.html: $(SRC_ENTRY_DIR)/%.md $(PANDOC_TEMPLATE)
 	@mkdir -p $(@D)
-	pandoc $(PANDOC_FLAGS) -o $@ -V url=/$(ENTRY_DIR)/$*.html $<
+	pandoc $(PANDOC_FLAGS) -o $@ -V url=$(URL_ROOT)/$(ENTRY_DIR)/$*.html $<
 
 $(PUB_ENTRY_DIR)/%: $(SRC_ENTRY_DIR)/%
 	cp $< $@
@@ -37,7 +39,7 @@ $(OUT_DIR)/index.md: $(SRC_DIR)/make_index.sh $(SRC_ENTRIES)
 
 $(PUB_DIR)/index.html: $(OUT_DIR)/index.md $(PANDOC_TEMPLATE)
 	@mkdir -p $(@D)
-	pandoc $(PANDOC_FLAGS) -o $@ -V url=/$(ENTRY_DIR)/index.html $<
+	pandoc $(PANDOC_FLAGS) -o $@ -V url=$(URL_ROOT)/$(ENTRY_DIR)/index.html $<
 
 $(PUB_DIR)/style.css: $(SRC_DIR)/style.sass
 	@mkdir -p $(@D)

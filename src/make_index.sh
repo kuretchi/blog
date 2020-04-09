@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+URL_ROOT=/blog
+
 metadata() {
   sed "s/^$1: //; t; d" "$2" | head -1
 }
@@ -16,7 +18,7 @@ preprocess() {
 
 postprocess() {
   while read name date title; do
-    echo "* [$title](/entries/$name/) <time class=\"entry-date\" datetime=\"$date\">$date</time>"
+    echo "* [$title]($URL_ROOT/entries/$name/) <time class=\"entry-date\" datetime=\"$date\">$date</time>"
   done
 }
 
