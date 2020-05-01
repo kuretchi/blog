@@ -1,5 +1,6 @@
 :root {
   --background-color: #fefeff;
+  --background-color-dark: #f1f1f2;
   --color: #38383d;
   --color-light: #878793;
   --color-extra-light: #dfdff2;
@@ -12,6 +13,9 @@ body {
   font-family: sans-serif;
   font-feature-settings: "kern";
   line-height: 1.75em; }
+  @media (max-width: 50rem) {
+    body {
+      font-size: 95%; } }
 
 h1 {
   font-size: 1.75em;
@@ -86,28 +90,36 @@ code {
   font-size: 0.98em; }
 
 div.sourceCode {
+  background-color: var(--background-color-dark);
   overflow-x: auto;
   overflow-y: hidden;
   padding-left: 1em;
   padding-right: 1em;
-  border-color: var(--color);
-  border-style: solid;
-  border-width: 2px;
   margin-top: 1.25em;
   margin-bottom: 1.25em;
   padding-top: 0.6em;
   padding-bottom: 0.6em; }
+  @media (max-width: 50rem) {
+    div.sourceCode {
+      padding-left: calc(1em + 0.5rem);
+      padding-right: calc(1em + 0.5rem);
+      margin-left: -1rem;
+      margin-right: -1rem; } }
 
 dl {
+  background-color: var(--background-color-dark);
   overflow-x: auto;
   overflow-y: hidden;
   padding-left: 1em;
   padding-right: 1em;
-  border-color: var(--color);
-  border-style: solid;
-  border-width: 2px;
   margin-top: 1.25em;
   margin-bottom: 1.25em; }
+  @media (max-width: 50rem) {
+    dl {
+      padding-left: calc(1em + 0.5rem);
+      padding-right: calc(1em + 0.5rem);
+      margin-left: -1rem;
+      margin-right: -1rem; } }
   dl > dt, dl > dd, dl > p {
     margin-top: 0.6em;
     margin-bottom: 0.6em; }
