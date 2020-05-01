@@ -84,9 +84,30 @@ procedure scanTree(tree, parent, root):
 
 今，頂点 $0$ に隣接する任意の頂点 $v$ について，$\mathrm{val}_0(v)$ は計算済みです．ここで，そのような $v$ を一つ取って，$\mathrm{val}_v(0)$ を考えます．これはどのような値でしょうか？ 最初，頂点 $0$ は根だったので親を持ちませんでした．しかし今度は，頂点 $0$ に唯一の親 $v$ ができることになります．つまり，$\mathrm{val}_v(0)$ は，$\mathrm{val}(0)$ から $\mathrm{val}_0(v)$ を*取り除いた*値になっています．きちんと言うと，$\mathrm{val}(0) = f(0, \bigodot _{u \text{は} 0 \text{に隣接する}} g\mathrm{val}_0(u))$ であったことに注意して，$\mathrm{val}_v(0) = f(0, \bigodot _{u \text{は} 0 \text{に隣接する} \land u \ne v} g\mathrm{val}_0(u))$ であるということです．
 
-以上を踏まえて，頂点 $0$ に隣接するすべての頂点 $v$ について，$\mathrm{val}_v(0)$ を求めることを考えます．頂点 $0$ に隣接する頂点の列を $(v_i)_{i = 0}^{\deg(0) - 1}$ とし，列 $(r_i)_{i = 0}^{\deg(0) - 1}$ を $r _{\deg(0) - 1} = 1_M$，$r_i = g\mathrm{val}_{0}(v _{i + 1}) \odot r _{i + 1} \ (i \lt \deg(0))$ で，列 $(l_i)_{i = 0}^{\deg(0) - 1}$ を $l_0 = 1_M$，$l_i = l_{i - 1} \odot g\mathrm{val}_{0}(v _{i - 1}) \ (i \gt 0)$ でそれぞれ定めます．これらは $\Theta(\deg(0))$ で計算できます．
+以上を踏まえて，頂点 $0$ に隣接するすべての頂点 $v$ について，$\mathrm{val}_v(0)$ を求めることを考えます．頂点 $0$ に隣接する頂点の列を $(v_i)_{i = 0}^{\deg(0) - 1}$ とし，列 $(r_i)_{i = 0}^{\deg(0) - 1}$ を
+$$
+\begin{align}
+  r _{\deg(0) - 1} &= 1_M \newline
+  r_i &= g\mathrm{val}_{0}(v _{i + 1}) \odot r _{i + 1} & (i \lt \deg(0))
+\end{align}
+$$
+で，列 $(l_i)_{i = 0}^{\deg(0) - 1}$ を
+$$
+\begin{align}
+  l_0 &= 1_M \newline
+  l_i &= l_{i - 1} \odot g\mathrm{val}_{0}(v _{i - 1}) & (i \gt 0)
+\end{align}
+$$
+でそれぞれ定めます．これらは $\Theta(\deg(0))$ で計算できます．
 
-今，任意の $i$ ($0 \le i \le \deg(0) - 1$) について，$f(0, l_i \odot r_i) = f(0, (\bigodot_{j = 0}^{i - 1} g\mathrm{val}_{0}(v_j)) \odot (\bigodot_{j = i + 1}^{\deg(0) - 1} g\mathrm{val}_{0}(v_j))) = \mathrm{val} _ {v_i}(0)$ です．$l_i$ と $r_i$ はすでに手に入っているので，これは $\Theta(1)$ で得られます．というわけで，$\Theta(\deg(0))$ で，頂点 $0$ に隣接するすべての頂点 $v$ について $\mathrm{val}_v(0)$ が得られました．
+今，任意の $i$ ($0 \le i \le \deg(0) - 1$) について，
+$$
+\begin{align}
+  f(0, l_i \odot r_i) &= f(0, (\bigodot_{j = 0}^{i - 1} g\mathrm{val}_{0}(v_j)) \odot (\bigodot_{j = i + 1}^{\deg(0) - 1} g\mathrm{val}_{0}(v_j))) \newline
+    &= \mathrm{val} _ {v_i}(0)
+\end{align}
+$$
+です．$l_i$ と $r_i$ はすでに手に入っているので，これは $\Theta(1)$ で得られます．というわけで，$\Theta(\deg(0))$ で，頂点 $0$ に隣接するすべての頂点 $v$ について $\mathrm{val}_v(0)$ が得られました．
 
 さらに，$f(0, l_{\deg(0) - 1} \odot g\mathrm{val}_{0}(v _ {\deg(0) - 1})) = \mathrm{val}(0)$ であることに注意してください．
 
