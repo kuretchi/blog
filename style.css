@@ -146,6 +146,7 @@ dl {
 
 hr {
   width: 1.5em;
+  background-color: var(--color);
   border-color: var(--color);
   border-style: solid;
   border-width: 1px;
