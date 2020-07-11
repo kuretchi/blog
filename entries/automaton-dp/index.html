@@ -208,9 +208,13 @@ code span.wa { color: #bf0303; } /* Warning */
     * $\texttt{loose}$：$x$ 未満であることが確定している．
     * $\texttt{exceeded}$：$x$ を超えることが確定している．
   * $\lbrack n \rbrack$ は今見ているのが何桁目かを表す． --></li>
+<li><span class="math inline">\(i &lt; n\)</span> のとき，
+<ul>
 <li><span class="math inline">\(\delta _ 1(\langle \mathtt{tight}, i \rangle, c) = \begin{cases} \langle \mathtt{loose}, i + 1 \rangle &amp; (c &lt; x _ {i + 1}) \newline \langle \mathtt{tight}, i + 1 \rangle &amp; (c = x _ {i + 1}) \newline \langle \mathtt{exceeded}, i + 1 \rangle &amp; (c &gt; x _ {i + 1}) \end{cases}\)</span></li>
 <li><span class="math inline">\(\delta _ 1(\langle \mathtt{loose}, i \rangle, c) = \langle \mathtt{loose}, i + 1 \rangle\)</span></li>
 <li><span class="math inline">\(\delta _ 1(\langle \mathtt{exceeded}, i \rangle, c) = \langle \mathtt{exceeded}, i + 1 \rangle\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\delta _ 1(\langle q, n \rangle, c) = \langle \texttt{exceeded}, n \rangle\)</span></li>
 <li><span class="math inline">\({q _ \text{init}} _ 1 = \langle \mathtt{tight}, 0 \rangle\)</span></li>
 <li><span class="math inline">\(F _ 1 = \lbrace \mathtt{tight}, \mathtt{loose} \rbrace \times \lbrack n \rbrack\)</span></li>
 </ul></li>
