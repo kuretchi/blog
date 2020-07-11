@@ -484,27 +484,16 @@ code span.wa { color: #bf0303; } /* Warning */
 <span id="cb1-221"><a href="#cb1-221"></a>  <span class="op">}</span></span>
 <span id="cb1-222"><a href="#cb1-222"></a><span class="op">}</span></span>
 <span id="cb1-223"><a href="#cb1-223"></a></span>
-<span id="cb1-224"><a href="#cb1-224"></a><span class="kw">fn</span> to_digits(<span class="kw">mut</span> x<span class="op">:</span> <span class="dt">u64</span>) <span class="op">-&gt;</span> <span class="dt">Vec</span><span class="op">&lt;</span><span class="dt">u8</span><span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb1-225"><a href="#cb1-225"></a>  <span class="kw">let</span> <span class="kw">mut</span> digits <span class="op">=</span> <span class="pp">vec!</span>[]<span class="op">;</span></span>
-<span id="cb1-226"><a href="#cb1-226"></a>  <span class="kw">while</span> x <span class="op">!=</span> <span class="dv">0</span> <span class="op">{</span></span>
-<span id="cb1-227"><a href="#cb1-227"></a>    digits<span class="op">.</span>push((x <span class="op">%</span> <span class="dv">10</span>) <span class="kw">as</span> <span class="dt">u8</span>)<span class="op">;</span></span>
-<span id="cb1-228"><a href="#cb1-228"></a>    x <span class="op">/=</span> <span class="dv">10</span><span class="op">;</span></span>
-<span id="cb1-229"><a href="#cb1-229"></a>  <span class="op">}</span></span>
-<span id="cb1-230"><a href="#cb1-230"></a>  digits<span class="op">.</span>reverse()<span class="op">;</span></span>
-<span id="cb1-231"><a href="#cb1-231"></a>  digits</span>
-<span id="cb1-232"><a href="#cb1-232"></a><span class="op">}</span></span>
-<span id="cb1-233"><a href="#cb1-233"></a></span>
-<span id="cb1-234"><a href="#cb1-234"></a><span class="kw">fn</span> solve(x<span class="op">:</span> <span class="dt">u64</span><span class="op">,</span> m<span class="op">:</span> <span class="dt">u64</span>) <span class="op">-&gt;</span> <span class="dt">u64</span> <span class="op">{</span></span>
-<span id="cb1-235"><a href="#cb1-235"></a>  <span class="kw">let</span> x <span class="op">=</span> to_digits(x)<span class="op">;</span></span>
-<span id="cb1-236"><a href="#cb1-236"></a>  <span class="kw">let</span> (ModSum(ans)<span class="op">,</span> _) <span class="op">=</span> automaton_dp(</span>
-<span id="cb1-237"><a href="#cb1-237"></a>    And(And(Le(<span class="op">&amp;</span>x)<span class="op">,</span> MultipleOf(m))<span class="op">,</span> ZigZag)<span class="op">,</span></span>
-<span id="cb1-238"><a href="#cb1-238"></a>    <span class="dv">0</span><span class="op">..=</span><span class="dv">9</span><span class="op">,</span></span>
-<span id="cb1-239"><a href="#cb1-239"></a>    x<span class="op">.</span>len()<span class="op">,</span></span>
-<span id="cb1-240"><a href="#cb1-240"></a>    <span class="op">|&amp;</span>(ModSum(x)<span class="op">,</span> ModSum(n))<span class="op">,</span> <span class="op">&amp;</span>c<span class="op">|</span> (ModSum((<span class="dv">10</span> <span class="op">*</span> x <span class="op">+</span> <span class="dt">u64</span><span class="pp">::</span>from(c) <span class="op">*</span> n) <span class="op">%</span> MOD)<span class="op">,</span> ModSum(n))<span class="op">,</span></span>
-<span id="cb1-241"><a href="#cb1-241"></a>    (ModSum(<span class="dv">0</span>)<span class="op">,</span> ModSum(<span class="dv">1</span>))<span class="op">,</span></span>
-<span id="cb1-242"><a href="#cb1-242"></a>  )<span class="op">;</span></span>
-<span id="cb1-243"><a href="#cb1-243"></a>  ans</span>
-<span id="cb1-244"><a href="#cb1-244"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb1-224"><a href="#cb1-224"></a><span class="kw">fn</span> solve(x<span class="op">:</span> <span class="op">&amp;</span>[<span class="dt">u8</span>]<span class="op">,</span> m<span class="op">:</span> <span class="dt">u64</span>) <span class="op">-&gt;</span> <span class="dt">u64</span> <span class="op">{</span></span>
+<span id="cb1-225"><a href="#cb1-225"></a>  <span class="kw">let</span> (ModSum(ans)<span class="op">,</span> _) <span class="op">=</span> automaton_dp(</span>
+<span id="cb1-226"><a href="#cb1-226"></a>    And(And(Le(<span class="op">&amp;</span>x)<span class="op">,</span> MultipleOf(m))<span class="op">,</span> ZigZag)<span class="op">,</span></span>
+<span id="cb1-227"><a href="#cb1-227"></a>    <span class="dv">0</span><span class="op">..=</span><span class="dv">9</span><span class="op">,</span></span>
+<span id="cb1-228"><a href="#cb1-228"></a>    x<span class="op">.</span>len()<span class="op">,</span></span>
+<span id="cb1-229"><a href="#cb1-229"></a>    <span class="op">|&amp;</span>(ModSum(x)<span class="op">,</span> ModSum(n))<span class="op">,</span> <span class="op">&amp;</span>c<span class="op">|</span> (ModSum((<span class="dv">10</span> <span class="op">*</span> x <span class="op">+</span> <span class="dt">u64</span><span class="pp">::</span>from(c) <span class="op">*</span> n) <span class="op">%</span> MOD)<span class="op">,</span> ModSum(n))<span class="op">,</span></span>
+<span id="cb1-230"><a href="#cb1-230"></a>    (ModSum(<span class="dv">0</span>)<span class="op">,</span> ModSum(<span class="dv">1</span>))<span class="op">,</span></span>
+<span id="cb1-231"><a href="#cb1-231"></a>  )<span class="op">;</span></span>
+<span id="cb1-232"><a href="#cb1-232"></a>  ans</span>
+<span id="cb1-233"><a href="#cb1-233"></a><span class="op">}</span></span></code></pre></div>
 <p>この問題特有の部分 (ジグザグ数を受理する DFA) が，その他の汎用的な部分から分離されていることが分かると思います．この汎用的な部分をライブラリにしておけば，実際に問題を解くときにはその問題特有の DFA を実装するだけでよいことになり，煩雑になりがちな桁 DP の実装を回避することができます．</p>
 <h2 id="参考">参考</h2>
 <ul>
