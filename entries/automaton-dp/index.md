@@ -428,18 +428,7 @@ impl Dfa for ZigZag {
   }
 }
 
-fn to_digits(mut x: u64) -> Vec<u8> {
-  let mut digits = vec![];
-  while x != 0 {
-    digits.push((x % 10) as u8);
-    x /= 10;
-  }
-  digits.reverse();
-  digits
-}
-
-fn solve(x: u64, m: u64) -> u64 {
-  let x = to_digits(x);
+fn solve(x: &[u8], m: u64) -> u64 {
   let (ModSum(ans), _) = automaton_dp(
     And(And(Le(&x), MultipleOf(m)), ZigZag),
     0..=9,
