@@ -131,13 +131,15 @@ $x$ の $10$ 進表記の桁数を $n$ とします．$x$ 以下の正整数は�
       * $\texttt{loose}$：$x$ 未満であることが確定している．
       * $\texttt{exceeded}$：$x$ を超えることが確定している．
     * $\lbrack n \rbrack$ は今見ているのが何桁目かを表す． -->
-  * $\delta _ 1(\langle \mathtt{tight}, i \rangle, c) = \begin{cases}
-    \langle \mathtt{loose}, i + 1 \rangle & (c < x _ {i + 1}) \newline
-    \langle \mathtt{tight}, i + 1 \rangle & (c = x _ {i + 1}) \newline
-    \langle \mathtt{exceeded}, i + 1 \rangle & (c > x _ {i + 1})
-  \end{cases}$
-  * $\delta _ 1(\langle \mathtt{loose}, i \rangle, c) = \langle \mathtt{loose}, i + 1 \rangle$
-  * $\delta _ 1(\langle \mathtt{exceeded}, i \rangle, c) = \langle \mathtt{exceeded}, i + 1 \rangle$
+  * $i < n$ のとき，
+    * $\delta _ 1(\langle \mathtt{tight}, i \rangle, c) = \begin{cases}
+      \langle \mathtt{loose}, i + 1 \rangle & (c < x _ {i + 1}) \newline
+      \langle \mathtt{tight}, i + 1 \rangle & (c = x _ {i + 1}) \newline
+      \langle \mathtt{exceeded}, i + 1 \rangle & (c > x _ {i + 1})
+    \end{cases}$
+    * $\delta _ 1(\langle \mathtt{loose}, i \rangle, c) = \langle \mathtt{loose}, i + 1 \rangle$
+    * $\delta _ 1(\langle \mathtt{exceeded}, i \rangle, c) = \langle \mathtt{exceeded}, i + 1 \rangle$
+  * $\delta _ 1(\langle q, n \rangle, c) = \langle \texttt{exceeded}, n \rangle$
   * ${q _ \text{init}} _ 1 = \langle \mathtt{tight}, 0 \rangle$
   * $F _ 1 = \lbrace \mathtt{tight}, \mathtt{loose} \rbrace \times \lbrack n \rbrack$
 
