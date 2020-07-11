@@ -17,6 +17,10 @@ body {
   @media (max-width: 50rem) {
     body {
       font-size: 95%; } }
+  @media (max-width: 33.33333rem) {
+    body {
+      font-size: 90%;
+      text-align: unset; } }
 
 h1 {
   font-size: 1.75em;
