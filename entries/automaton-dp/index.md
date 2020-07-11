@@ -279,6 +279,7 @@ where
       }
     }
     mem::swap(&mut dp, &mut dp_next);
+    dp_next.clear();
   }
 
   let mut acc = M::identity();
