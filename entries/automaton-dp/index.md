@@ -271,11 +271,10 @@ where
       for c in sigma.clone() {
         if let Some(next_state) = dfa.next_state(&state, &c) {
           let value = mul(&value, &c);
-          if let Some(acc) = dp_next.get_mut(&next_state) {
-            *acc = acc.op(&value);
-          } else {
-            dp_next.insert(next_state, value);
-          }
+          dp_next
+            .entry(next_state)
+            .and_modify(|acc| *acc = acc.op(&value))
+            .or_insert(value);
         }
       }
     }
