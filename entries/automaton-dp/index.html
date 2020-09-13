@@ -203,11 +203,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <ul>
 <li><span class="math inline">\(x\)</span> 以下の正整数のみを受理する DFA <span class="math inline">\(A _ 1 = \langle Q _ 1, \Sigma, \delta _ 1, {q _ \text{init}} _ 1, F _ 1 \rangle\)</span>
 <ul>
-<li><span class="math inline">\(Q _ 1 = \lbrace \mathtt{tight}, \mathtt{loose}, \mathtt{exceeded} \rbrace \times \lbrack n \rbrack\)</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <!-- * 最上位からある桁まで見たときに，
-    * $\texttt{tight}$：$x$ との大小関係が未確定．
-    * $\texttt{loose}$：$x$ 未満であることが確定している．
-    * $\texttt{exceeded}$：$x$ を超えることが確定している．
-  * $\lbrack n \rbrack$ は今見ているのが何桁目かを表す． --></li>
+<li><span class="math inline">\(Q _ 1 = \lbrace \mathtt{tight}, \mathtt{loose}, \mathtt{exceeded} \rbrace \times \lbrack n + 1 \rbrack\)</span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
 <li><span class="math inline">\(i &lt; n\)</span> のとき，
 <ul>
 <li><span class="math inline">\(\delta _ 1(\langle \mathtt{tight}, i \rangle, c) = \begin{cases} \langle \mathtt{loose}, i + 1 \rangle &amp; (c &lt; x _ {i + 1}) \newline \langle \mathtt{tight}, i + 1 \rangle &amp; (c = x _ {i + 1}) \newline \langle \mathtt{exceeded}, i + 1 \rangle &amp; (c &gt; x _ {i + 1}) \end{cases}\)</span></li>
@@ -216,24 +212,18 @@ code span.wa { color: #bf0303; } /* Warning */
 </ul></li>
 <li><span class="math inline">\(\delta _ 1(\langle q, n \rangle, c) = \langle \texttt{exceeded}, n \rangle\)</span></li>
 <li><span class="math inline">\({q _ \text{init}} _ 1 = \langle \mathtt{tight}, 0 \rangle\)</span></li>
-<li><span class="math inline">\(F _ 1 = \lbrace \mathtt{tight}, \mathtt{loose} \rbrace \times \lbrack n \rbrack\)</span></li>
+<li><span class="math inline">\(F _ 1 = \lbrace \mathtt{tight}, \mathtt{loose} \rbrace \times \lbrack n + 1 \rbrack\)</span></li>
 </ul></li>
 <li><span class="math inline">\(m\)</span> の倍数のみを受理する DFA <span class="math inline">\(A _ 2 = \langle Q _ 2, \Sigma, \delta _ 2, {q _ \text{init}} _ 2, F _ 2 \rangle\)</span>
 <ul>
-<li><span class="math inline">\(Q _ 2 = \lbrack m - 1 \rbrack\)</span></li>
+<li><span class="math inline">\(Q _ 2 = \lbrack m \rbrack\)</span></li>
 <li><span class="math inline">\(\delta _ 2(q, c) = (10q + c) \bmod m\)</span></li>
 <li><span class="math inline">\({q _ \text{init}} _ 2 = 0\)</span></li>
 <li><span class="math inline">\(F _ 2 = \lbrace 0 \rbrace\)</span></li>
 </ul></li>
 <li>ジグザグ数のみを受理する DFA <span class="math inline">\(A _ 3 = \langle Q _ 3, \Sigma, \delta _ 3, {q _ \text{init}} _ 3, F _ 3 \rangle\)</span>
 <ul>
-<li><span class="math inline">\(Q _ 3 = \lbrace \mathtt{empty}, \mathtt{rejected} \rbrace \cup (\lbrace \mathtt{single}, \mathtt{increasing}, \mathtt{decreasing} \rbrace \times \Sigma)\)</span> <!-- * 最上位からある桁まで見たときに，
-    * $\texttt{empty}$：一桁も見ていないか，見たすべての桁が $0$ (leading zero)．
-    * $\texttt{single}$：一桁しか見ていない．
-    * $\texttt{increasing}$：ジグザグ数の可能性があり，一つ上の桁は二つ上の桁より大きい．
-    * $\texttt{decreasing}$：ジグザグ数の可能性があり，一つ上の桁は二つ上の桁より小さい．
-    * $\texttt{rejected}$：ジグザグ数ではないことが確定している．
-  * $\Sigma$ は一つ上の桁を表す． --></li>
+<li><span class="math inline">\(Q _ 3 = \lbrace \mathtt{empty}, \mathtt{rejected} \rbrace + (\lbrace \mathtt{single}, \mathtt{increasing}, \mathtt{decreasing} \rbrace \times \Sigma)\)</span></li>
 <li><span class="math inline">\(\delta _ 3(\mathtt{empty}, c) = \begin{cases} \mathtt{empty} &amp; (c = 0) \newline \langle \mathtt{single}, c \rangle &amp; (c \neq 0) \end{cases}\)</span></li>
 <li><span class="math inline">\(\delta _ 3(\langle \mathtt{single}, c _ \text{prev} \rangle, c) = \begin{cases} \langle \mathtt{increasing}, c \rangle &amp; (c _ \text{prev} \lt c) \newline \mathtt{rejected} &amp; (c _ \text{prev} = c) \newline \langle \mathtt{decreasing}, c \rangle &amp; (c _ \text{prev} \gt c) \end{cases}\)</span></li>
 <li><span class="math inline">\(\delta _ 3(\langle \mathtt{increasing}, c _ \text{prev} \rangle, c) = \begin{cases} \mathtt{rejected} &amp; (c _ \text{prev} \le c) \newline \langle \mathtt{decreasing}, c \rangle &amp; (c _ \text{prev} \gt c) \end{cases}\)</span></li>
@@ -243,7 +233,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <li><span class="math inline">\(F _ 3 = Q _ 3 \setminus \lbrace \mathtt{empty}, \mathtt{rejected} \rbrace\)</span></li>
 </ul></li>
 </ul>
-<p>ただし，タイプライタ体で書いたものはすべて相異なる定数，<span class="math inline">\(x _ i\)</span> は <span class="math inline">\(x\)</span> の上から <span class="math inline">\(i\)</span> 桁目，<span class="math inline">\(n \in \mathbb{N}\)</span> について <span class="math inline">\(\lbrack n \rbrack = \lbrace 0, 1, \dots, n \rbrace\)</span> とします．</p>
+<p>ただし，タイプライタ体で書いたものはすべて相異なる定数，<span class="math inline">\(x _ i\)</span> は <span class="math inline">\(x\)</span> の上から <span class="math inline">\(i\)</span> 桁目，<span class="math inline">\(n \in \mathbb{N}\)</span> について <span class="math inline">\(\lbrack n \rbrack = \lbrace 0, 1, \dots, n - 1 \rbrace\)</span> とします．</p>
 <p>すると，<span class="math inline">\(A = \langle Q, \Sigma, \delta, q _ \text{init}, F \rangle\)</span> は次のように <span class="math inline">\(A _ 1, A _ 2, A _ 3\)</span> の intersection として書くことができます．</p>
 <ul>
 <li><span class="math inline">\(Q = Q _ 1 \times Q _ 2 \times Q _ 3\)</span></li>
@@ -503,7 +493,7 @@ code span.wa { color: #bf0303; } /* Warning */
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p><span class="math inline">\(\langle M, \oplus \rangle\)</span> の単位元という意味ではないので注意してください．<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p><span class="math inline">\(\lbrack n \rbrack\)</span> との直積を取ったことによって状態数が <span class="math inline">\(n + 1\)</span> 倍され，計算量のオーダーが悪化しそうに見えるかもしれませんが，これは簡単な枝刈りによって回避することができます．詳しくは実装を参照してください．<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><span class="math inline">\(\lbrack n + 1 \rbrack\)</span> との直積を取ったことによって状態数が <span class="math inline">\(n + 1\)</span> 倍され，計算量のオーダーが悪化しそうに見えるかもしれませんが，これは簡単な枝刈りによって回避することができます．詳しくは実装を参照してください．<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3" role="doc-endnote"><p>区間加算更新+区間和取得の遅延伝播セグメント木などを参照するとよいです．<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
