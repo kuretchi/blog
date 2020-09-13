@@ -125,12 +125,7 @@ $x$ の $10$ 進表記の桁数を $n$ とします．$x$ 以下の正整数は�
 「$x$ 以下 かつ $m$ の倍数であるようなジグザグ数」のみを受理する DFA を $A$ としましょう．まずは次の三つの DFA $A _ 1, A _ 2, A _ 3$ を考えます．
 
 * $x$ 以下の正整数のみを受理する DFA $A _ 1 = \langle Q _ 1, \Sigma, \delta _ 1, {q _ \text{init}} _ 1, F _ 1 \rangle$
-  * $Q _ 1 = \lbrace \mathtt{tight}, \mathtt{loose}, \mathtt{exceeded} \rbrace \times \lbrack n \rbrack$^[$\lbrack n \rbrack$ との直積を取ったことによって状態数が $n + 1$ 倍され，計算量のオーダーが悪化しそうに見えるかもしれませんが，これは簡単な枝刈りによって回避することができます．詳しくは実装を参照してください．]
-    <!-- * 最上位からある桁まで見たときに，
-      * $\texttt{tight}$：$x$ との大小関係が未確定．
-      * $\texttt{loose}$：$x$ 未満であることが確定している．
-      * $\texttt{exceeded}$：$x$ を超えることが確定している．
-    * $\lbrack n \rbrack$ は今見ているのが何桁目かを表す． -->
+  * $Q _ 1 = \lbrace \mathtt{tight}, \mathtt{loose}, \mathtt{exceeded} \rbrace \times \lbrack n + 1 \rbrack$^[$\lbrack n + 1 \rbrack$ との直積を取ったことによって状態数が $n + 1$ 倍され，計算量のオーダーが悪化しそうに見えるかもしれませんが，これは簡単な枝刈りによって回避することができます．詳しくは実装を参照してください．]
   * $i < n$ のとき，
     * $\delta _ 1(\langle \mathtt{tight}, i \rangle, c) = \begin{cases}
       \langle \mathtt{loose}, i + 1 \rangle & (c < x _ {i + 1}) \newline
@@ -141,23 +136,16 @@ $x$ の $10$ 進表記の桁数を $n$ とします．$x$ 以下の正整数は�
     * $\delta _ 1(\langle \mathtt{exceeded}, i \rangle, c) = \langle \mathtt{exceeded}, i + 1 \rangle$
   * $\delta _ 1(\langle q, n \rangle, c) = \langle \texttt{exceeded}, n \rangle$
   * ${q _ \text{init}} _ 1 = \langle \mathtt{tight}, 0 \rangle$
-  * $F _ 1 = \lbrace \mathtt{tight}, \mathtt{loose} \rbrace \times \lbrack n \rbrack$
+  * $F _ 1 = \lbrace \mathtt{tight}, \mathtt{loose} \rbrace \times \lbrack n + 1 \rbrack$
 
 * $m$ の倍数のみを受理する DFA $A _ 2 = \langle Q _ 2, \Sigma, \delta _ 2, {q _ \text{init}} _ 2, F _ 2 \rangle$
-  * $Q _ 2 = \lbrack m - 1 \rbrack$
+  * $Q _ 2 = \lbrack m \rbrack$
   * $\delta _ 2(q, c) = (10q + c) \bmod m$
   * ${q _ \text{init}} _ 2 = 0$
   * $F _ 2 = \lbrace 0 \rbrace$
 
 * ジグザグ数のみを受理する DFA $A _ 3 = \langle Q _ 3, \Sigma, \delta _ 3, {q _ \text{init}} _ 3, F _ 3 \rangle$
-  * $Q _ 3 = \lbrace \mathtt{empty}, \mathtt{rejected} \rbrace \cup (\lbrace \mathtt{single}, \mathtt{increasing}, \mathtt{decreasing} \rbrace \times \Sigma)$
-    <!-- * 最上位からある桁まで見たときに，
-      * $\texttt{empty}$：一桁も見ていないか，見たすべての桁が $0$ (leading zero)．
-      * $\texttt{single}$：一桁しか見ていない．
-      * $\texttt{increasing}$：ジグザグ数の可能性があり，一つ上の桁は二つ上の桁より大きい．
-      * $\texttt{decreasing}$：ジグザグ数の可能性があり，一つ上の桁は二つ上の桁より小さい．
-      * $\texttt{rejected}$：ジグザグ数ではないことが確定している．
-    * $\Sigma$ は一つ上の桁を表す． -->
+  * $Q _ 3 = \lbrace \mathtt{empty}, \mathtt{rejected} \rbrace + (\lbrace \mathtt{single}, \mathtt{increasing}, \mathtt{decreasing} \rbrace \times \Sigma)$
   * $\delta _ 3(\mathtt{empty}, c) = \begin{cases}
   \mathtt{empty} & (c = 0) \newline
     \langle \mathtt{single}, c \rangle & (c \neq 0)
@@ -182,7 +170,7 @@ $x$ の $10$ 進表記の桁数を $n$ とします．$x$ 以下の正整数は�
   * ${q _ \text{init}} _ 3 = \mathtt{empty}$
   * $F _ 3 = Q _ 3 \setminus \lbrace \mathtt{empty}, \mathtt{rejected} \rbrace$
 
-ただし，タイプライタ体で書いたものはすべて相異なる定数，$x _ i$ は $x$ の上から $i$ 桁目，$n \in \mathbb{N}$ について $\lbrack n \rbrack = \lbrace 0, 1, \dots, n \rbrace$ とします．
+ただし，タイプライタ体で書いたものはすべて相異なる定数，$x _ i$ は $x$ の上から $i$ 桁目，$n \in \mathbb{N}$ について $\lbrack n \rbrack = \lbrace 0, 1, \dots, n - 1 \rbrace$ とします．
 
 すると，$A = \langle Q, \Sigma, \delta, q _ \text{init}, F \rangle$ は次のように $A _ 1, A _ 2, A _ 3$ の intersection として書くことができます．
 
