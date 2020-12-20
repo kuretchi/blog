@@ -189,11 +189,6 @@ a:link.footnote-ref, a:link.footnote-back {
   display: flex;
   flex-direction: column; }
 
-#global-header {
-  border-bottom-color: var(--color-extra-light);
-  border-bottom-style: solid;
-  border-bottom-width: 1px; }
-
 #global-header-container {
   display: flex;
   justify-content: space-between;
@@ -226,11 +221,6 @@ a:link.footnote-ref, a:link.footnote-back {
   margin-right: auto;
   margin-top: 3em;
   margin-bottom: 3em; }
-
-#global-footer {
-  border-top-color: var(--color-extra-light);
-  border-top-style: solid;
-  border-top-width: 1px; }
 
 #global-footer-container {
   display: flex;
